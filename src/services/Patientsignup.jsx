@@ -33,7 +33,7 @@ export default function Signup() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:3001/patient/signup",
+      url: "https://plum-drab-fly.cyclic.app/patient/signup",
       headers: {
         "Content-Type": "application/json",
       },

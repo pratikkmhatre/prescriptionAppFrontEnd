@@ -35,7 +35,7 @@ export default function Doctordashboard() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://localhost:3001/doctor/consultationlist/" + doctorId,
+      url: "https://plum-drab-fly.cyclic.app/doctor/consultationlist/" + doctorId,
       headers: {},
     };
 

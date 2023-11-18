@@ -38,7 +38,7 @@ export default function Patientdashboard() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://localhost:3001/patient/dashboard",
+      url: "https://plum-drab-fly.cyclic.app/patient/dashboard",
       headers: {},
     };
 

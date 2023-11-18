@@ -52,7 +52,7 @@ export default function Consultationform() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://localhost:3001/patient/details/" + pId,
+      url: "https://plum-drab-fly.cyclic.app/patient/details/" + pId,
       headers: {
         "Content-Type": "application/json",
       },
@@ -86,7 +86,7 @@ export default function Consultationform() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:3001/patient/newconsultation" + pathName,
+      url: "https://plum-drab-fly.cyclic.app/patient/newconsultation" + pathName,
       headers: {
         "Content-Type": "application/json",
       },

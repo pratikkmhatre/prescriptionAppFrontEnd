@@ -32,7 +32,7 @@ export default function Doctorprofile() {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://localhost:3001/doctor/getdetails/" + doctorId,
+      url: "https://plum-drab-fly.cyclic.app/doctor/getdetails/" + doctorId,
       headers: {},
     };
 

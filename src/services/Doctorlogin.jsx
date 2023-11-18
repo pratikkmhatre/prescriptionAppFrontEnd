@@ -23,7 +23,7 @@ export default function Login() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:3001/doctor/login",
+      url: "https://plum-drab-fly.cyclic.app/doctor/login",
       headers: {
         "Content-Type": "application/json",
       },
