@@ -121,7 +121,7 @@ export default function Doctordashboard() {
                       e?.preventDefault();
                       console.log(d.patientId);
                       window.location.pathname =
-                        "/doctor/precriptionform/" + d.patientId;
+                        "/doctor/prescriptionform/" + d.patientId;
                     }}
                   >
                     Prescribe
