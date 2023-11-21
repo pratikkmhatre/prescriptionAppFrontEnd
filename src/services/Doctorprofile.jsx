@@ -5,6 +5,8 @@ import {
   useNavigate,
 } from "react-router-dom/dist/umd/react-router-dom.development";
 import { NavLink } from "react-router-dom/dist/umd/react-router-dom.development";
+import { useEffect } from "react";
+
 export default function Doctorprofile() {
   const [details, setDetails] = useState([]);
   const navigate = useNavigate();
@@ -28,24 +30,35 @@ export default function Doctorprofile() {
   const decodeToken = parseJwt(token);
   const doctorId = decodeToken.doctorId;
 
-  window.addEventListener("DOMContentLoaded", (e) => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "https://plum-drab-fly.cyclic.app/doctor/getdetails/" + doctorId,
-      headers: {},
-    };
+  // window.addEventListener("DOMContentLoaded", (e) => {
+  //   let config = {
+  //     method: "get",
+  //     maxBodyLength: Infinity,
+  //     url: "http://localhost:3001/doctor/getdetails/" + doctorId,
+  //     headers: {},
+  //   };
 
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        setDetails(response.data);
+  //   axios
+  //     .request(config)
+  //     .then((response) => {
+  //       console.log(JSON.stringify(response.data));
+  //       setDetails(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // });
+
+  useEffect(() => {
+    fetch("https://plum-drab-fly.cyclic.app/doctor/getdetails/" + doctorId)
+      .then((response) => response.json())
+      .then((data) => {
+        setDetails(data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
-  });
+  }, []);
 
   return (
     <section className="doctorprofile">
@@ -62,6 +75,15 @@ export default function Doctorprofile() {
         <h2 style={{ paddingTop: "5%" }}>
           <em>Doctor Profile</em>
         </h2>
+      </div>
+      <div className="m-4">
+        <img
+          src={
+            "https://plum-drab-fly.cyclic.app/" +
+            "patient/" +
+            details.profileImage
+          }
+        />
       </div>
       <table
         className="table"

@@ -13,6 +13,8 @@ export default function Consultationform() {
   const [familyHistory, setFamilyHistory] = useState("");
   const [pathName, setPathName] = useState(null);
   const [patientId, setPatientId] = useState("");
+  const [patientName, setPatientname] = useState("");
+  const [transactionId, setTransactionId] = useState("");
 
   const location = window.location.pathname;
 
@@ -64,13 +66,13 @@ export default function Consultationform() {
         setHistoryOfIllness(response.data.historyOfIllness);
         setHistoryOfSurgery(response.data.historyOfSurgery);
         setPatientId(response.data.id);
+        setPatientname(response.data.name);
         console.log(JSON.stringify(response.data));
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  //setillness(datda)
 
   function newConsultation() {
     let data = JSON.stringify({
@@ -79,14 +81,15 @@ export default function Consultationform() {
       familyHistory,
       allergies: allergies,
       others: other,
-      doctorId: pathName,
       patientId,
+      transactionId,
     });
 
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://plum-drab-fly.cyclic.app/patient/newconsultation" + pathName,
+      url:
+        "https://plum-drab-fly.cyclic.app/patient/newconsultation" + pathName,
       headers: {
         "Content-Type": "application/json",
       },
@@ -195,6 +198,26 @@ export default function Consultationform() {
           </div>
           <div className="mb-3">
             <img src="https://i.postimg.cc/9fzLFXnP/Qrcode.jpg" alt="QR Code" />
+            <div
+              className="card"
+              style={{
+                height: "20rem",
+                width: "14rem",
+                marginLeft: "5%",
+                padding: "1%",
+                textAlign: "center",
+                float: "right",
+              }}
+            >
+              <div className="card-body">
+                <h5 className="card-title">Rs.600/-</h5>
+                <p className="card-text">Consultation Fees</p>
+                <p className="card-text">
+                  <strong>For Mr. {patientName}</strong>
+                </p>
+                <p className="card-text">You can pay using any UPI app</p>
+              </div>
+            </div>
           </div>
           <div className="mb-3">
             <input
@@ -203,6 +226,7 @@ export default function Consultationform() {
               id="textOthers"
               placeholder="Enter Transaction ID"
               name="others"
+              onChange={(e) => setTransactionId(e.target.value)}
             />
           </div>
           <div className="col-12">

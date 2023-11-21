@@ -20,23 +20,23 @@ export default function Signup() {
       return;
     }
     //Calling API's for signup
-    var formdata = new FormData();
-    formdata.append("profileImage", profileImage);
-    formdata.append("name", name);
-    formdata.append("speciality", speciality);
-    formdata.append("email", email);
-    formdata.append("phoneNo", phoneNo);
-    formdata.append("experience", experience);
-    formdata.append("password", password);
+    const data = new FormData();
+    data.append("profileImage", profileImage);
+    data.append("name", name);
+    data.append("speciality", speciality);
+    data.append("email", email);
+    data.append("phoneNo", phoneNo);
+    data.append("experience", experience);
+    data.append("password", password);
 
     let config = {
       method: "post",
       maxBodyLength: Infinity,
       url: "https://plum-drab-fly.cyclic.app/doctor/signup",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: formdata,
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
+      data: data,
     };
 
     axios
@@ -54,15 +54,14 @@ export default function Signup() {
   return (
     <>
       <div className="container min-vh-100 d-flex justify-content-center align-items-center">
-        <form className="login-form">
+        <form className="login-form" enctype="multipart/form-data">
           {/*Profile photo Field*/}
           <div className="mb-3">
             <input
               type="file"
-              className="form-control"
+              name="profileImage"
               id="formGroupExampleInput"
-              value={profileImage}
-              onChange={(e) => setProfileImage(e.target.value)}
+              onChange={(e) => setProfileImage(e.target.files[0])}
             />
           </div>
           {/*Name Field*/}

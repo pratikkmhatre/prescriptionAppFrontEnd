@@ -10,12 +10,15 @@ export default function Doctorcards({ data }) {
           style={{
             height: "18rem",
             width: "18rem",
-            marginLeft: "3%",
+            marginLeft: "5%",
+            padding: "1%",
             textAlign: "center",
           }}
         >
           <img
-            src={d.profileImage}
+            src={
+              "https://plum-drab-fly.cyclic.app/" + "patient/" + d.profileImage
+            }
             className="card-img-top m-1"
             alt="Doctor Image"
           ></img>

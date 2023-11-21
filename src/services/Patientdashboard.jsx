@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom/dist/umd/react-router-dom.development";
+import {
+  redirect,
+  useNavigate,
+} from "react-router-dom/dist/umd/react-router-dom.development";
 import { useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import Doctorcards from "./Doctorcards";
 function parseJwt(tk) {
@@ -34,23 +38,34 @@ export default function Patientdashboard() {
   }
 
   //get doctor lists
-  function getDoctors() {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "https://plum-drab-fly.cyclic.app/patient/dashboard",
-      headers: {},
-    };
+  // function getDoctors() {
+  //   let config = {
+  //     method: "get",
+  //     maxBodyLength: Infinity,
+  //     url: "http://localhost:3001/patient/dashboard",
+  //     headers: {},
+  //   };
 
-    axios
-      .request(config)
-      .then((response) => {
-        setDoctorList(response.data);
+  //   axios
+  //     .request(config)
+  //     .then((response) => {
+  //       setDoctorList(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
+  useEffect(() => {
+    fetch("https://plum-drab-fly.cyclic.app/patient/dashboard")
+      .then((response) => response.json())
+      .then((data) => {
+        setDoctorList(data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
-  }
+  }, []);
 
   return (
     <section>
@@ -64,6 +79,18 @@ export default function Patientdashboard() {
       >
         Logout
       </NavLink>
+
+      <NavLink
+        className="link"
+        onClick={(e) => {
+          e?.preventDefault();
+
+          navigate("/patient/prescriptions");
+        }}
+      >
+        Prescriptions
+      </NavLink>
+
       <div style={{ textAlign: "center", paddingTop: "5%" }}>
         <h2>
           <em>
@@ -72,15 +99,7 @@ export default function Patientdashboard() {
         </h2>
       </div>
       <div style={{ textAlign: "center", paddingTop: "1%" }}>
-        <button
-          className="btn btn-primary m-1"
-          onClick={(e) => {
-            e?.preventDefault();
-            getDoctors();
-          }}
-        >
-          Show available doctors
-        </button>
+        <h4 style={{ margin: "1%" }}>Available Doctors</h4>
       </div>
       <Doctorcards data={doctorList} />
     </section>

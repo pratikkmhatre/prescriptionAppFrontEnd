@@ -10,8 +10,11 @@ import Consultationform from "./services/Consultationform";
 import axios from "axios";
 import "../src/services/styles.css";
 import Home from "./services/Home";
-import Prescriptionform from "./services/Precriptionform";
+import Prescriptionform from "./services/Prescriptionform";
 import Doctorprofile from "./services/Doctorprofile";
+import Prescriptionlist from "./services/Prescriptionlist";
+import Prescriptionlistdr from "./services/Prescriptionlistdr";
+import Prescriptionupdateform from "./services/Prescriptionupdateform";
 
 export const API_BASE_URL = "http://localhost:3001";
 
@@ -35,6 +38,12 @@ const App = () => {
           element={<Prescriptionform />}
         />
         <Route path="/doctor/profile" element={<Doctorprofile />} />
+        <Route path="/patient/prescriptions" element={<Prescriptionlist />} />
+        <Route path="/doctor/prescriptions" element={<Prescriptionlistdr />} />
+        <Route
+          path="/doctor/updateprescriptions"
+          element={<Prescriptionupdateform />}
+        />
       </Routes>
     </div>
   );

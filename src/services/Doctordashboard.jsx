@@ -5,10 +5,12 @@ import {
 
 import axios from "axios";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Doctordashboard() {
   const navigate = useNavigate();
   const [consultations, setConsultations] = useState([]);
+  const [doctorName, setDoctorName] = useState([]);
 
   //JWT verify
   function parseJwt(tk) {
@@ -31,24 +33,47 @@ export default function Doctordashboard() {
   const doctorId = decodeToken.doctorId;
 
   //consultaion list
-  function getConsultations() {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "https://plum-drab-fly.cyclic.app/doctor/consultationlist/" + doctorId,
-      headers: {},
-    };
+  // function getConsultations() {
+  //   let config = {
+  //     method: "get",
+  //     maxBodyLength: Infinity,
+  //     url: "http://localhost:3001/doctor/consultationlist/" + doctorId,
+  //     headers: {},
+  //   };
 
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        setConsultations(response.data);
+  //   axios
+  //     .request(config)
+  //     .then((response) => {
+  //       console.log(JSON.stringify(response.data));
+  //       setConsultations(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+  useEffect(() => {
+    fetch("https://plum-drab-fly.cyclic.app/doctor/getdetails/" + doctorId)
+      .then((response) => response.json())
+      .then((data) => {
+        setDoctorName(data.name);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
-  }
+  }, []);
+
+  useEffect(() => {
+    fetch(
+      "https://plum-drab-fly.cyclic.app/doctor/consultationlist/" + doctorId
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setConsultations(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <section>
@@ -66,6 +91,15 @@ export default function Doctordashboard() {
         className="link"
         onClick={(e) => {
           e?.preventDefault();
+          navigate("/doctor/prescriptions");
+        }}
+      >
+        Prescriptions
+      </NavLink>
+      <NavLink
+        className="link"
+        onClick={(e) => {
+          e?.preventDefault();
           navigate("/doctor/profile");
         }}
       >
@@ -74,15 +108,9 @@ export default function Doctordashboard() {
       <div
         style={{ textAlign: "center", paddingTop: "5%", paddingBottom: "2%" }}
       >
-        <button
-          className="btn btn-dark m-1"
-          onClick={(e) => {
-            e?.preventDefault();
-            getConsultations();
-          }}
-        >
-          Show consultations
-        </button>
+        <h3>
+          Here are your consultations, <em>{doctorName}</em>
+        </h3>
       </div>
       <table
         className="table"
